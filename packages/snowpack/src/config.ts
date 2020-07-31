@@ -58,6 +58,7 @@ const DEFAULT_CONFIG: Partial<SnowpackConfig> = {
     clean: false,
     metaDir: '__snowpack__',
     minify: true,
+    sourceMaps: true,
   },
 };
 
@@ -133,6 +134,7 @@ const configSchema = {
         clean: {type: 'boolean'},
         metaDir: {type: 'string'},
         minify: {type: 'boolean'},
+        sourceMaps: {type: 'boolean'},
       },
     },
     proxy: {
@@ -171,7 +173,7 @@ function expandCliFlags(flags: CLIFlags): DeepPartial<SnowpackConfig> {
       continue;
     }
     if (configSchema.properties.buildOptions.properties[flag]) {
-      result.devOptions[flag] = val;
+      result.buildOptions[flag] = val;
       continue;
     }
     console.error(`Unknown CLI flag: "${flag}"`);
